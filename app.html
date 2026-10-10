@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" data-gate="app">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlashForge</title>
+<meta name="description" content="Paste notes, get AI-written flashcards, and study them with SM-2 spaced repetition.">
+<meta name="app-repo" content="https://github.com/dguywhoknows/spaced-repetition-cards">
+<meta name="app-version" content="2.1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e0662f'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial%2CHelvetica%2Csans-serif' font-weight='700' font-size='13' fill='white'%3EFF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/app.css">
+<script src="src/lib/config.js"></script>
+<script src="src/lib/auth.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a class="logo-link" href="index.html" aria-label="Home page"><span class="logo" aria-hidden="true">FF</span></a><div><h1>FlashForge</h1><p>Notes in, flashcards out, spaced repetition built in.</p></div></div>
+  <nav class="topnav" data-nav aria-label="Pages"></nav>
+  <div class="top-actions"><a class="btn ghost sm" href="https://github.com/dguywhoknows/spaced-repetition-cards" target="_blank" rel="noopener">GitHub</a><span data-ai-badge></span></div>
+</header>
+
+<div class="page active" data-page="decks" data-title="Decks">
+<main class="stack">
+  <div class="page-head"><div><h2>Your decks</h2><p id="todaySummary"></p></div>
+    <div class="row"><button class="btn primary" id="newDeckBtn">+ New deck</button><label class="btn" style="color:var(--text)">Import<input type="file" id="importFile" accept=".json,.txt,.tsv" hidden></label></div></div>
+  <div class="kpis" id="homeKpis"></div>
+  <div id="deckList" class="grid cols-3"></div>
+</main>
+</div>
+
+<div class="page" data-page="create" data-title="Create">
+<main class="grid cols-2">
+  <div class="card stack">
+    <h2 style="margin:0">1 · Source notes</h2>
+    <label>Deck<select id="createDeck"></select></label>
+    <label id="newDeckRow">New deck name<input class="input" id="deckName" value="Photosynthesis"></label>
+    <label>Notes<textarea id="notes" rows="12"></textarea></label>
+    <div class="grid cols-3">
+      <label>Cards<select id="nCards"><option>6</option><option selected>10</option><option>15</option><option>20</option></select></label>
+      <label>Card mix<select id="mix"><option value="mixed">Q&amp;A + cloze</option><option value="qa">Q&amp;A only</option><option value="cloze">Cloze only</option></select></label>
+      <label>Tags<input class="input" id="createTags" placeholder="bio chapter3"></label>
+    </div>
+    <button class="btn primary" id="gen">Generate cards</button>
+  </div>
+  <div class="card stack">
+    <div class="row between"><h2 style="margin:0">2 · Review &amp; edit</h2><span class="tag" id="draftCount">0 cards</span></div>
+    <div id="draft" class="draft"><div class="empty">Generated cards appear here. Edit anything before saving.</div></div>
+    <div class="row end"><button class="btn" id="addCard">+ Card</button><button class="btn primary" id="saveDeck" disabled>Save to deck</button></div>
+  </div>
+</main>
+</div>
+
+<div class="page" data-page="study" data-title="Study">
+<main>
+  <div class="study-wrap">
+    <div class="row between">
+      <div class="row"><select id="studyDeck" style="width:auto"></select><label class="chk"><input type="checkbox" id="cram"> Cram mode</label></div>
+      <span class="tag" id="queueInfo"></span>
+    </div>
+    <div class="bar" style="margin:12px 0"><span id="progress" style="width:0%"></span></div>
+    <div id="cardBox"></div>
+    <details class="small muted" style="margin-top:14px"><summary>Study options</summary>
+      <div class="grid cols-2" style="margin-top:8px">
+        <label>New cards per day<input class="input" type="number" id="newLimit" min="0" max="200"></label>
+        <label>Max reviews per session<input class="input" type="number" id="reviewLimit" min="10" max="1000"></label>
+      </div>
+      <p>Keys: <kbd>Space</kbd> flip · <kbd>1</kbd>–<kbd>4</kbd> grade · <kbd>E</kbd> edit · <kbd>S</kbd> suspend · <kbd>U</kbd> undo last grade</p>
+    </details>
+  </div>
+</main>
+</div>
+
+<div class="page" data-page="browse" data-title="Browse">
+<main class="stack">
+  <div class="page-head"><div><h2>Card browser</h2><p>Search with text, <code>tag:bio</code>, <code>is:new</code>, <code>is:due</code>, <code>is:suspended</code>, <code>is:leech</code>, <code>is:mature</code>.</p></div></div>
+  <div class="card row">
+    <input class="input grow" id="bq" placeholder="Search cards…">
+    <select id="bDeck" style="width:auto"></select>
+    <span class="small muted" id="bCount"></span>
+  </div>
+  <div class="card row" id="bulkBar">
+    <span class="small"><b id="selCount">0</b> selected</span>
+    <button class="btn sm" data-bulk="suspend">Suspend</button>
+    <button class="btn sm" data-bulk="unsuspend">Unsuspend</button>
+    <button class="btn sm" data-bulk="reset">Reset progress</button>
+    <button class="btn sm" data-bulk="tag">Add tag…</button>
+    <select id="moveTo" style="width:auto"><option value="">Move to deck…</option></select>
+    <button class="btn sm danger" data-bulk="delete">Delete</button>
+    <button class="btn sm ghost" id="exportSel">Export TSV</button>
+  </div>
+  <div class="card table-wrap"><table id="bTable"></table></div>
+  <div class="card hidden" id="editor"></div>
+</main>
+</div>
+
+<div class="page" data-page="stats" data-title="Stats">
+<main class="stack">
+  <div class="kpis" id="statTiles"></div>
+  <div class="card"><h2>Activity: last 26 weeks</h2><div id="heatmap" class="heatmap"></div></div>
+  <div class="grid cols-2">
+    <div class="card"><h2>Review forecast: next 30 days</h2><div id="forecast"></div></div>
+    <div class="card"><h2>Card states</h2><div id="states"></div></div>
+  </div>
+  <div class="grid cols-2">
+    <div class="card"><h2>Retention by deck (30d)</h2><div id="deckRet"></div></div>
+    <div class="card"><h2>Leeches &amp; hardest cards</h2><div id="hardest"></div></div>
+  </div>
+</main>
+</div>
+
+<div class="page" data-page="settings" data-title="Settings"></div>
+<script src="src/lib/dom.js"></script>
+<script src="src/lib/ai.js"></script>
+<script src="src/lib/router.js"></script>
+<script src="src/lib/copilot.js"></script>
+<script src="src/core.js"></script>
+<script src="src/demo.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>

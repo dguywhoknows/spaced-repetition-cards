@@ -3,118 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlashForge</title>
-<meta name="description" content="Paste notes, get AI-written flashcards, and study them with SM-2 spaced repetition.">
-<meta name="app-repo" content="https://github.com/dguywhoknows/spaced-repetition-cards">
-<meta name="app-version" content="2.1.0">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e0662f'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial%2CHelvetica%2Csans-serif' font-weight='700' font-size='13' fill='white'%3EFF%3C/text%3E%3C/svg%3E">
+<title>FlashForge: Paste your notes. Remember them for good</title>
+<meta name="description" content="AI turns notes into sharp flashcards, and spaced repetition schedules each one right before you would forget it.">
+<meta property="og:title" content="FlashForge">
+<meta property="og:description" content="AI turns notes into sharp flashcards, and spaced repetition schedules each one right before you would forget it.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e0662f'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='13' fill='white'%3EFF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles/base.css">
-<link rel="stylesheet" href="styles/app.css">
+<link rel="stylesheet" href="styles/landing.css">
+<style>:root { --accent: #e0662f; }</style>
 </head>
-<body>
-<header class="topbar">
-  <div class="brand"><span class="logo" aria-hidden="true">FF</span><div><h1>FlashForge</h1><p>Notes in, flashcards out, spaced repetition built in.</p></div></div>
-  <nav class="topnav" data-nav aria-label="Pages"></nav>
-  <div class="top-actions"><a class="btn ghost sm" href="https://github.com/dguywhoknows/spaced-repetition-cards" target="_blank" rel="noopener">GitHub</a><span data-ai-badge></span></div>
+<body class="landing">
+<header class="l-nav">
+  <a class="l-brand" href="#top"><span class="logo">FF</span><b>FlashForge</b></a>
+  <nav aria-label="Sections"><a href="#demo">Demo</a><a href="#ask">Ask it</a><a href="#features">Features</a><a href="#faq">FAQ</a></nav>
+  <div class="l-nav-cta"><a class="btn primary" href="app.html">Open the app</a></div>
 </header>
 
-<div class="page active" data-page="decks" data-title="Decks">
-<main class="stack">
-  <div class="page-head"><div><h2>Your decks</h2><p id="todaySummary"></p></div>
-    <div class="row"><button class="btn primary" id="newDeckBtn">+ New deck</button><label class="btn" style="color:var(--text)">Import<input type="file" id="importFile" accept=".json,.txt,.tsv" hidden></label></div></div>
-  <div class="kpis" id="homeKpis"></div>
-  <div id="deckList" class="grid cols-3"></div>
-</main>
-</div>
+<main id="top">
+  <section class="l-hero">
+    <p class="l-kicker">Free · runs in your browser · AI built in</p>
+    <h1>Paste your notes. Remember them for good.</h1>
+    <p class="l-sub">AI turns notes into sharp flashcards, and spaced repetition schedules each one right before you would forget it.</p>
+    <div class="l-actions"><a class="btn primary big" href="app.html">Open the app</a><a class="btn big" href="#demo">See it working</a></div>
+  </section>
 
-<div class="page" data-page="create" data-title="Create">
-<main class="grid cols-2">
-  <div class="card stack">
-    <h2 style="margin:0">1 · Source notes</h2>
-    <label>Deck<select id="createDeck"></select></label>
-    <label id="newDeckRow">New deck name<input class="input" id="deckName" value="Photosynthesis"></label>
-    <label>Notes<textarea id="notes" rows="12"></textarea></label>
-    <div class="grid cols-3">
-      <label>Cards<select id="nCards"><option>6</option><option selected>10</option><option>15</option><option>20</option></select></label>
-      <label>Card mix<select id="mix"><option value="mixed">Q&amp;A + cloze</option><option value="qa">Q&amp;A only</option><option value="cloze">Cloze only</option></select></label>
-      <label>Tags<input class="input" id="createTags" placeholder="bio chapter3"></label>
+  <section class="l-demo reveal" id="demo">
+    <div class="l-window"><div class="l-window-bar"><i></i><i></i><i></i><span>FlashForge</span></div>
+      <iframe src="app.html?embed=1" title="FlashForge live demo" loading="lazy"></iframe></div>
+    <p class="l-caption">This is the real app running below, not a recording. Try it.</p>
+  </section>
+
+  <section class="l-section reveal" id="ask">
+    <div class="l-head"><p class="l-kicker">Just say what you want</p><h2>Tell it in plain words. It uses its own tools to do it.</h2>
+      <p>Open the AI box in the app, type a request, and the AI drives the app's real features for you: it sets things up, edits, runs and reports back. Standing instructions let you shape every AI feature to how you like to work.</p></div>
+    <div class="l-prompts"><div class="l-prompt"><div class="say">Make 15 cards on the causes of World War I</div><div class="does">Writes the cards into a new deck.</div></div><div class="l-prompt"><div class="say">Make my Spanish deck harder</div><div class="does">Rewrites that deck&#x27;s cards with tougher prompts.</div></div><div class="l-prompt"><div class="say">Start reviewing whatever is due</div><div class="does">Opens a study session with today&#x27;s due cards.</div></div></div>
+  </section>
+
+  <section class="l-section reveal" id="features">
+    <div class="l-head"><p class="l-kicker">What it does</p><h2>Everything in one place</h2></div>
+    <div class="l-grid"><div class="l-card"><h3>AI card generation</h3><p>AI card generation with Q&amp;A / cloze mix and a configurable card count</p></div><div class="l-card"><h3>Inline editor to tweak</h3><p>Inline editor to tweak, retype or delete cards before saving</p></div><div class="l-card"><h3>SM-2 spaced repetition</h3><p>SM-2 spaced repetition with Again/Hard/Good/Easy and interval previews</p></div><div class="l-card"><h3>3D flip cards</h3><p>3D flip cards with keyboard shortcuts (Space, 1-4)</p></div><div class="l-card"><h3>Stats</h3><p>Due/new/mature counts, 30-day retention, 14-day review forecast, hardest cards</p></div><div class="l-card"><h3>Export to JSON or Anki-compatible TSV</h3><p>Export to JSON or Anki-compatible TSV, plus JSON import</p></div><div class="l-card"><h3>Everything persists</h3><p>Everything persists in localStorage, no account needed</p></div><div class="l-card"><h3>Five pages</h3><p>Decks dashboard, Create, Study, Browse, Stats (plus Settings)</p></div><div class="l-card"><h3>Card browser with query syntax (tag</h3><p>, is:new|due|suspended|leech|mature), multi-select and bulk suspend / tag / reset / move / delete</p></div></div>
+  </section>
+
+  <section class="l-section reveal">
+    <div class="l-head"><p class="l-kicker">How it works</p><h2>Real engines where it counts, AI where it helps</h2></div>
+    <div class="l-steps">
+      <div><span>1</span><h3>Open the app</h3><p>No sign-up needed right now. Everything runs in your browser.</p></div>
+      <div><span>2</span><h3>Ask in your own words</h3><p>Type or click. The AI handles jSON-mode card generation from your notes using spaced-repetition best practices; &#x27;Why is this the answer?&#x27; tutoring grounded in the deck&#x27;s original notes; on-demand mnemonic generation for stubborn cards.</p></div>
+      <div><span>3</span><h3>Keep what you make</h3><p>Your work is saved in your browser and can be exported any time.</p></div>
     </div>
-    <button class="btn primary" id="gen">Generate cards</button>
-  </div>
-  <div class="card stack">
-    <div class="row between"><h2 style="margin:0">2 · Review &amp; edit</h2><span class="tag" id="draftCount">0 cards</span></div>
-    <div id="draft" class="draft"><div class="empty">Generated cards appear here. Edit anything before saving.</div></div>
-    <div class="row end"><button class="btn" id="addCard">+ Card</button><button class="btn primary" id="saveDeck" disabled>Save to deck</button></div>
-  </div>
-</main>
-</div>
+    <p class="l-note">Computed locally, with no AI involved: scheduling, study sessions, statistics, charts, import/export.</p>
+  </section>
 
-<div class="page" data-page="study" data-title="Study">
-<main>
-  <div class="study-wrap">
-    <div class="row between">
-      <div class="row"><select id="studyDeck" style="width:auto"></select><label class="chk"><input type="checkbox" id="cram"> Cram mode</label></div>
-      <span class="tag" id="queueInfo"></span>
+  <section class="l-section reveal" id="faq">
+    <div class="l-head"><p class="l-kicker">Questions</p><h2>Good to know</h2></div>
+    <div class="l-faq">
+      <details><summary>Is it free?</summary><p>Yes. Every feature is free. </p></details>
+      <details><summary>Where is my data stored?</summary><p>What you create stays in this browser on this device. You can export a backup or delete everything from Settings.</p></details>
+      <details><summary>Do I need an API key?</summary><p>Not to try it: the app runs in demo mode with sample AI output. For live AI, connect a free Groq or OpenRouter key in Settings.</p></details>
+      <details><summary>What can I type into the AI box?</summary><p>Anything you would ask a helpful colleague who knows the app, such as: "Make 15 cards on the causes of World War I". It plans the steps, runs the app's own functions and tells you what it did. The Instructions tab saves preferences every AI feature follows.</p></details>
+      <details><summary>Can I see the code?</summary><p>Yes. It is open source under the MIT license on <a href="https://github.com/dguywhoknows/spaced-repetition-cards" rel="noopener">GitHub</a>, with a <a href="tests/">public test suite</a>.</p></details>
     </div>
-    <div class="bar" style="margin:12px 0"><span id="progress" style="width:0%"></span></div>
-    <div id="cardBox"></div>
-    <details class="small muted" style="margin-top:14px"><summary>Study options</summary>
-      <div class="grid cols-2" style="margin-top:8px">
-        <label>New cards per day<input class="input" type="number" id="newLimit" min="0" max="200"></label>
-        <label>Max reviews per session<input class="input" type="number" id="reviewLimit" min="10" max="1000"></label>
-      </div>
-      <p>Keys: <kbd>Space</kbd> flip · <kbd>1</kbd>–<kbd>4</kbd> grade · <kbd>E</kbd> edit · <kbd>S</kbd> suspend · <kbd>U</kbd> undo last grade</p>
-    </details>
-  </div>
-</main>
-</div>
+  </section>
 
-<div class="page" data-page="browse" data-title="Browse">
-<main class="stack">
-  <div class="page-head"><div><h2>Card browser</h2><p>Search with text, <code>tag:bio</code>, <code>is:new</code>, <code>is:due</code>, <code>is:suspended</code>, <code>is:leech</code>, <code>is:mature</code>.</p></div></div>
-  <div class="card row">
-    <input class="input grow" id="bq" placeholder="Search cards…">
-    <select id="bDeck" style="width:auto"></select>
-    <span class="small muted" id="bCount"></span>
-  </div>
-  <div class="card row" id="bulkBar">
-    <span class="small"><b id="selCount">0</b> selected</span>
-    <button class="btn sm" data-bulk="suspend">Suspend</button>
-    <button class="btn sm" data-bulk="unsuspend">Unsuspend</button>
-    <button class="btn sm" data-bulk="reset">Reset progress</button>
-    <button class="btn sm" data-bulk="tag">Add tag…</button>
-    <select id="moveTo" style="width:auto"><option value="">Move to deck…</option></select>
-    <button class="btn sm danger" data-bulk="delete">Delete</button>
-    <button class="btn sm ghost" id="exportSel">Export TSV</button>
-  </div>
-  <div class="card table-wrap"><table id="bTable"></table></div>
-  <div class="card hidden" id="editor"></div>
+  <section class="l-final reveal">
+    <h2>Paste your notes. Remember them for good.</h2>
+    <a class="btn primary big" href="app.html">Open the app</a>
+  </section>
 </main>
-</div>
 
-<div class="page" data-page="stats" data-title="Stats">
-<main class="stack">
-  <div class="kpis" id="statTiles"></div>
-  <div class="card"><h2>Activity: last 26 weeks</h2><div id="heatmap" class="heatmap"></div></div>
-  <div class="grid cols-2">
-    <div class="card"><h2>Review forecast: next 30 days</h2><div id="forecast"></div></div>
-    <div class="card"><h2>Card states</h2><div id="states"></div></div>
-  </div>
-  <div class="grid cols-2">
-    <div class="card"><h2>Retention by deck (30d)</h2><div id="deckRet"></div></div>
-    <div class="card"><h2>Leeches &amp; hardest cards</h2><div id="hardest"></div></div>
-  </div>
-</main>
-</div>
-
-<div class="page" data-page="settings" data-title="Settings"></div>
-<script src="src/lib/dom.js"></script>
-<script src="src/lib/ai.js"></script>
-<script src="src/lib/router.js"></script>
-<script src="src/core.js"></script>
-<script src="src/demo.js"></script>
-<script src="src/app.js"></script>
+<footer class="l-foot"><span>FlashForge</span><span><a href="https://github.com/dguywhoknows/spaced-repetition-cards" rel="noopener">Source</a> · <a href="tests/">Tests</a> · MIT license</span></footer>
+<script>
+document.querySelectorAll('.reveal').forEach((el) => el.classList.add('pre'));
+const io = new IntersectionObserver((es) => es.forEach((x) => { if (x.isIntersecting) { x.target.classList.remove('pre'); io.unobserve(x.target); } }), { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
 </body>
 </html>
