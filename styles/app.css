@@ -1,4 +1,4 @@
-:root { --accent: #e0662f; }
+:root { --accent: #a8650f; }
 .draft { max-height: 520px; overflow: auto; display: grid; gap: 10px; }
 .draft .dc { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 6px; }
 .draft .dc textarea { min-height: 44px; background: var(--panel); font-size: 14px; }

@@ -1,4 +1,4 @@
-/* demo.js — sample deck and canned model output used when no API key is configured. */
+/* Sample deck and canned model output used when no API key is configured. */
 
 var DEMO_NOTES = `Photosynthesis converts light energy into chemical energy stored in glucose. It happens in chloroplasts, mainly in leaf mesophyll cells. The overall equation is 6CO2 + 6H2O + light → C6H12O6 + 6O2.
 

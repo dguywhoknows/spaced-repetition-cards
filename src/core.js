@@ -1,4 +1,4 @@
-/* core.js — scheduling, queues, statistics and import/export for the flashcard app (pure, unit-tested). */
+/* Scheduling, queues, statistics and import/export for the flashcard app (pure, unit-tested). */
 
 var DAY_MS = 864e5;
 
